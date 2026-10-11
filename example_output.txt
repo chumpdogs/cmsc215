@@ -1,0 +1,24 @@
+=== Unit 1 OOP Assignment ===
+
+Parent object: Device: Gateway, IP: 10.0.0.1
+Child object: Device: Core-SW, IP: 10.0.0.2, Vendor: Dell, Location: Data center, Ports: [{'number': 1, 'settings': {'vlan': 32}}, {'number': 2, 'settings': {'vlan': 40}}]
+Inherited category: Network Device
+Empty switch ports: []
+Handled invalid port configuration: Port must be positive and VLAN must be 1 through 4094
+Handled invalid port configuration: Port must be positive and VLAN must be 1 through 4094
+Handled invalid port configuration: Port 1 already exists
+
+=== Namespace Demonstration ===
+Class variable through class: Dell
+Class variable through object: Dell
+Switch A instance namespace: {'hostname': 'SW-A', 'ip_address': '10.0.0.10', 'location': 'Server room', 'ports': [], 'maintenance_ticket': 'INC-104'}
+Switch B instance namespace: {'hostname': 'SW-B', 'ip_address': '10.0.0.11', 'location': 'Office', 'ports': []}
+Child class namespace keys: ['__doc__', '__firstlineno__', '__init__', '__module__', '__static_attributes__', 'add_port', 'display_info', 'vendor']
+Ticket exists only on A: True False
+
+=== Copy Demonstration ===
+Original: Device: SW-C, IP: 10.0.0.12, Vendor: Dell, Location: Lab, Ports: [{'number': 1, 'settings': {'vlan': 35}}]
+Shallow copy: Device: SW-C, IP: 10.0.0.12, Vendor: Dell, Location: Lab, Ports: [{'number': 1, 'settings': {'vlan': 35}}]
+Deep copy: Device: SW-C, IP: 10.0.0.12, Vendor: Dell, Location: Lab, Ports: [{'number': 1, 'settings': {'vlan': 32}}]
+
+All demonstration checks passed.
