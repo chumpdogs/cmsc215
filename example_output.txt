@@ -1,24 +1,31 @@
-=== Unit 1 OOP Assignment ===
+=== UNIT 2: STACKS AND QUEUES ===
 
-Parent object: Device: Gateway, IP: 10.0.0.1
-Child object: Device: Core-SW, IP: 10.0.0.2, Vendor: Dell, Location: Data center, Ports: [{'number': 1, 'settings': {'vlan': 32}}, {'number': 2, 'settings': {'vlan': 40}}]
-Inherited category: Network Device
-Empty switch ports: []
-Handled invalid port configuration: Port must be positive and VLAN must be 1 through 4094
-Handled invalid port configuration: Port must be positive and VLAN must be 1 through 4094
-Handled invalid port configuration: Port 1 already exists
+=== STACK: UNDO NETWORK CHANGES ===
+Applied: Set hostname
+Applied: Create VLAN 32
+Applied: Assign port 5 to VLAN 32
+Applied: Enable port 5
+Most recent change: Enable port 5
+Undo: Enable port 5
+Undo: Assign port 5 to VLAN 32
+Undo: Create VLAN 32
+Undo: Set hostname
+Pop on empty stack: Cannot undo a change: the stack is empty.
+Peek on empty stack: Cannot view the last change: the stack is empty.
+Single item removed: Restart interface
+Single-item stack now empty: True
 
-=== Namespace Demonstration ===
-Class variable through class: Dell
-Class variable through object: Dell
-Switch A instance namespace: {'hostname': 'SW-A', 'ip_address': '10.0.0.10', 'location': 'Server room', 'ports': [], 'maintenance_ticket': 'INC-104'}
-Switch B instance namespace: {'hostname': 'SW-B', 'ip_address': '10.0.0.11', 'location': 'Office', 'ports': []}
-Child class namespace keys: ['__doc__', '__firstlineno__', '__init__', '__module__', '__static_attributes__', 'add_port', 'display_info', 'vendor']
-Ticket exists only on A: True False
-
-=== Copy Demonstration ===
-Original: Device: SW-C, IP: 10.0.0.12, Vendor: Dell, Location: Lab, Ports: [{'number': 1, 'settings': {'vlan': 35}}]
-Shallow copy: Device: SW-C, IP: 10.0.0.12, Vendor: Dell, Location: Lab, Ports: [{'number': 1, 'settings': {'vlan': 35}}]
-Deep copy: Device: SW-C, IP: 10.0.0.12, Vendor: Dell, Location: Lab, Ports: [{'number': 1, 'settings': {'vlan': 32}}]
-
-All demonstration checks passed.
+=== QUEUE: NETWORK SUPPORT TICKETS ===
+Ticket received: VPN access
+Ticket received: Printer connectivity
+Ticket received: Switch port down
+Ticket received: Password reset
+Next ticket: VPN access
+Ticket handled: VPN access
+Ticket handled: Printer connectivity
+Ticket handled: Switch port down
+Ticket handled: Password reset
+Dequeue on empty queue: Cannot process a ticket: the queue is empty.
+Front on empty queue: Cannot view the next ticket: the queue is empty.
+Single ticket handled: Check cable
+Single-item queue now empty: True

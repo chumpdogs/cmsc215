@@ -1,43 +1,37 @@
-# Unit 1 Discussion: Python OOP, Namespaces, and Copying
+# Unit 2 Discussion: Stacks and Queues
 
 ## Overview
 
-I completed the starter Python project using a network device and managed switch example. The code demonstrated inheritance, class and instance namespaces, and how copying objects affected nested data. I kept the original TODO labels visible in the Python file.
+I completed the starter Python program by implementing a stack and a queue and testing both with examples related to network support. I kept the original TODO prompts in the code and added comments explaining the operations.
 
-## Implementation
+## What I implemented
 
-I created `ParentClass` to represent a network device with a hostname and IP address. It included a shared `device_category` class variable, a constructor, a `display_info()` method, and a `__str__()` special method for readable output.
+I built `Stack` using a Python list. `push()` added changes to the end of the list, `pop()` removed the latest change, `peek()` displayed that change without removing it, and `is_empty()` checked whether anything remained. This represented undoing network configuration changes in reverse order, or last in, first out (LIFO).
 
-I created `ChildClass` to represent a managed switch. It inherited the device information, added a shared `vendor` class variable, and stored its location and a list of ports. Its overridden `display_info()` included the additional switch information. The `add_port()` method stored dictionaries containing port numbers and nested VLAN settings. I initialized port lists separately so different switches would not accidentally share the same list.
-
-## Namespaces and copying
-
-I created two switches and accessed the shared `vendor` value through both the class and an object. I then attached a maintenance ticket to just one switch and printed both objects' `__dict__` values. This showed that an attribute added to one instance did not automatically appear on another. I also printed the child class namespace keys.
-
-I demonstrated shallow and deep copying with a switch containing a nested port configuration. After changing the original port's VLAN, the shallow copy reflected the new value because the nested list and dictionaries were shared. The deep copy retained its original VLAN because its nested objects were independent.
+I built `Queue` using `collections.deque`. `enqueue()` added tickets to the end, `dequeue()` handled the oldest ticket first, `front()` showed the next ticket, and `is_empty()` checked whether any tickets remained. This represented a basic first come, first served support queue, or first in, first out (FIFO).
 
 ## Testing and edge cases
 
-I tested a switch with no ports and verified that its list started empty. I also attempted to add a zero-numbered port, an out-of-range VLAN, and a duplicate port. The program caught those cases with `ValueError`, printed an explanation, and continued running. Assertions checked that the copy behavior was correct and that invalid operations did not add any extra ports.
+I added four changes and four support tickets to show the order in which items were removed. I also tested removing and viewing items from empty structures. Those operations raised descriptive `IndexError` messages, which the demonstration caught so the program could keep running. I tested a single item in each structure and confirmed both became empty after removal.
 
-The port list required more memory as ports were added. Adding a port was generally inexpensive, but checking whether a port number already existed required scanning the list, so the duplicate check became slower as the list grew. A dictionary keyed by port number would have been more efficient for a large switch inventory.
+## Performance and memory
 
-## Real-world application
+Both structures stored one reference for each item, so memory usage grew proportionally to the number of stored items, or O(n). Pushing and popping at the end of a Python list were O(1) amortized and O(1), respectively. Adding and removing from opposite ends of a deque were O(1) operations. Peeking and checking for emptiness were O(1).
 
-I chose a switch configuration example because it related to maintaining network infrastructure. Reusing a common network device class reduced repeated code, and keeping each switch's settings separate made the program easier to expand and troubleshoot. The validation checks also illustrated how rejecting an invalid configuration early could prevent a larger operational problem.
+## Real-world use
 
-## Running the project
+I chose network configuration history and support tickets because both situations are familiar to IT and cybersecurity work. Undoing configuration changes is a useful example of LIFO. Processing ordinary support tickets in arrival order is a good example of FIFO, although real support systems may prioritize urgent incidents.
 
-I ran the project with Python 3 using:
+## Running the program
+
+I ran the completed program with:
 
 ```bash
-python unit1_discussion.py
+python unit2_discussion.py
 ```
 
-The program printed the parent and child objects, namespace information, shallow versus deep copy results, and validation messages, then finished with `All demonstration checks passed.`
+The program printed each operation and the expected error handling for empty structures.
 
-## Discussion reflection
+## Reflection
 
-I learned more about how inheritance, namespaces, and copying objects actually work in Python. The biggest thing that stood out was the difference between shallow and deep copying. At first, making a copy sounds like it should give you a completely separate object, but that is not necessarily true when lists and dictionaries are nested inside it. I tested this by changing a VLAN on the original switch and watching the shallow copy change too, while the deep copy stayed the same.
-
-I also worked through input validation so a bad port or VLAN would raise an error instead of silently being accepted. Compared with procedural programming, I found that OOP made more sense for this kind of example because each switch kept its own configuration while sharing common behavior with other network devices. That should reduce maintenance overhead as a project grows. In a larger application, I could reuse the parent class for routers, firewalls, or other equipment without rewriting the basics every time.
+This assignment helped me better understand why stacks and queues use different processing orders even though both hold collections of data. The main thing I had to think through was what should happen when a user tries to remove or view an item that isn't there. I handled that with clear exceptions and caught them in the demonstration rather than letting the whole program stop. For me, the difference makes sense when comparing network changes with routine support tickets. If I need to undo several changes, I'd normally start with the most recent one, which is how a stack works. If tickets are being handled in the order they came in, a queue is more appropriate. Both approaches have their uses, and picking the wrong one could make an application behave in a way users don't expect.
